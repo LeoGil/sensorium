@@ -2,7 +2,6 @@
 import { usePage } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3'
 import { Icon, ChevronRight } from 'lucide-vue-next'
-import type { IconType } from '@/types'
 
 import {
     Collapsible,
@@ -23,10 +22,10 @@ import {
 
 import type { NavItem } from '@/types'
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
     items: NavItem[]
 }>(), {
-    items: [],
+    items: () => [],
 })
 
 const page = usePage()
@@ -49,9 +48,9 @@ function isActive(href: string) {
                             <SidebarMenuButton :tooltip="item.title" :is-active="isActive(item.href)">
                                 <!-- Corrigido: renderiza componente Vue diretamente ou usa Icon com iconNode -->
                                 <component
-                                    v-if="typeof item.icon === 'function' || typeof item.icon === 'object' && !item.icon?.length"
+                                    v-if="typeof item.icon === 'function' || (typeof item.icon === 'object' && 'length' in item.icon) && !item.icon?.length"
                                     :is="item.icon" class="mr-2" />
-                                <component v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
+                                <Icon v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
                                 <span>{{ item.title }}</span>
                                 <ChevronRight
                                     class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -66,7 +65,7 @@ function isActive(href: string) {
                                         <component
                                             v-if="typeof sub.icon === 'function' || typeof sub.icon === 'object' && !sub.icon?.length"
                                             :is="sub.icon" />
-                                        <component v-else :is="Icon" :iconNode="sub.icon" />
+                                        <Icon v-else :is="Icon" :iconNode="sub.icon" />
                                         <span>{{ sub.title }}</span>
                                         </Link>
                                     </SidebarMenuSubButton>
@@ -83,7 +82,7 @@ function isActive(href: string) {
                         <component
                             v-if="typeof item.icon === 'function' || typeof item.icon === 'object' && !item.icon?.length"
                             :is="item.icon" class="mr-2" />
-                        <component v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
+                        <Icon v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
                         <span>{{ item.title }}</span>
                         </Link>
                     </SidebarMenuButton>
