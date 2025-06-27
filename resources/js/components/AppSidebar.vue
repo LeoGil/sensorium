@@ -5,8 +5,8 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, PillBottle, Boxes } from 'lucide-vue-next';
-import { coffeeBean, coffeemaker } from '@lucide/lab';
+import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, PillBottle, Boxes, Bolt, Notebook } from 'lucide-vue-next';
+import { coffeeBean, coffeemaker, toolbox } from '@lucide/lab';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -16,19 +16,43 @@ const mainNavItems: NavItem[] = [
         icon: LayoutDashboard,
     },
     {
-        title: 'Brewing Methods',
+        title: 'Equipments',
         href: '/',
-        icon: coffeemaker,
+        icon: toolbox,
+        children: [
+            {
+                title: 'Brewing Methods',
+                href: '/',
+                icon: coffeemaker,
+            },
+            {
+                title: 'Grinders',
+                href: '/',
+                icon: Bolt,
+            }
+        ],
     },
     {
         title: 'Coffees',
         href: '/',
         icon: coffeeBean,
-    },
-    {
-        title: 'Batches',
-        href: '/',
-        icon: Boxes,
+        children: [
+            {
+                title: 'Coffees',
+                href: '/',
+                icon: coffeeBean,
+            },
+            {
+                title: 'Batches',
+                href: '/',
+                icon: Boxes,
+            },
+            {
+                title: 'Recipes',
+                href: '/',
+                icon: Notebook,
+            }
+        ]
     },
     {
         title: 'Extractions',
@@ -73,7 +97,7 @@ const footerNavItems: NavItem[] = [
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
                         <Link :href="route('dashboard')">
-                            <AppLogo />
+                        <AppLogo />
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

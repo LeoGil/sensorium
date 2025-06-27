@@ -1,35 +1,94 @@
 <script setup lang="ts">
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
-import { Link, usePage } from '@inertiajs/vue3';
-import { Icon } from 'lucide-vue-next';
+import { usePage } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+import { Icon, ChevronRight } from 'lucide-vue-next'
+import type { IconType } from '@/types'
 
-const isActive = (href: string): boolean => {
-    const currentPath = page.url.split('?')[0];
-    return currentPath === href;
-};
+import {
+    Collapsible,
+    CollapsibleTrigger,
+    CollapsibleContent,
+} from '@/components/ui/collapsible'
 
-defineProps<{
-    items: NavItem[];
-}>();
+import {
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuItem,
+    SidebarMenuButton,
+    SidebarMenuSub,
+    SidebarMenuSubItem,
+    SidebarMenuSubButton,
+} from '@/components/ui/sidebar'
 
-const page = usePage();
+import type { NavItem } from '@/types'
+
+const props = withDefaults(defineProps<{
+    items: NavItem[]
+}>(), {
+    items: [],
+})
+
+const page = usePage()
+
+function isActive(href: string) {
+    return page.url.split('?')[0] === href
+}
 </script>
 
 <template>
     <SidebarGroup class="px-2 py-0">
         <SidebarGroupLabel>Platform</SidebarGroupLabel>
         <SidebarMenu>
-            <SidebarMenuItem v-for="item in items" :key="item.title">
-                <SidebarMenuButton as-child :is-active="isActive(item.href)" :tooltip="item.title">
-                    <Link :href="item.href">
-                    <component v-if="typeof item.icon === 'object' && item.icon?.length" :is="Icon"
-                        :iconNode="item.icon" />
-                    <component v-else :is="item.icon" />
-                    <span>{{ item.title }}</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
+            <template v-for="item in items" :key="item.title">
+                <Collapsible v-if="item.children && item.children.length"
+                    :default-open="isActive(item.href) || item.children.some(c => isActive(c.href))" as-child
+                    class="group/collapsible">
+                    <SidebarMenuItem>
+                        <CollapsibleTrigger as-child>
+                            <SidebarMenuButton :tooltip="item.title" :is-active="isActive(item.href)">
+                                <!-- Corrigido: renderiza componente Vue diretamente ou usa Icon com iconNode -->
+                                <component
+                                    v-if="typeof item.icon === 'function' || typeof item.icon === 'object' && !item.icon?.length"
+                                    :is="item.icon" class="mr-2" />
+                                <component v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
+                                <span>{{ item.title }}</span>
+                                <ChevronRight
+                                    class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                            </SidebarMenuButton>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent>
+                            <SidebarMenuSub>
+                                <SidebarMenuSubItem v-for="sub in item.children" :key="sub.title">
+                                    <SidebarMenuSubButton as-child :is-active="isActive(sub.href)">
+                                        <Link :href="item.href" class="flex items-center space-x-2">
+                                        <component
+                                            v-if="typeof sub.icon === 'function' || typeof sub.icon === 'object' && !sub.icon?.length"
+                                            :is="sub.icon" />
+                                        <component v-else :is="Icon" :iconNode="sub.icon" />
+                                        <span>{{ sub.title }}</span>
+                                        </Link>
+                                    </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                            </SidebarMenuSub>
+                        </CollapsibleContent>
+                    </SidebarMenuItem>
+                </Collapsible>
+
+                <SidebarMenuItem v-else>
+                    <SidebarMenuButton :is-active="isActive(item.href)" as-child :tooltip="item.title">
+                        <Link :href="item.href" class="flex items-center space-x-2">
+                        <!-- Mesmo fix para ícones no menu simples -->
+                        <component
+                            v-if="typeof item.icon === 'function' || typeof item.icon === 'object' && !item.icon?.length"
+                            :is="item.icon" class="mr-2" />
+                        <component v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
+                        <span>{{ item.title }}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            </template>
         </SidebarMenu>
     </SidebarGroup>
 </template>
