@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, PillBottle, Boxes, Bolt, Notebook } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, PillBottle, Boxes, Bolt, Notebook, Store } from 'lucide-vue-next';
 import { coffeeBean, coffeemaker, toolbox } from '@lucide/lab';
 import AppLogo from './AppLogo.vue';
 
@@ -38,14 +38,19 @@ const mainNavItems: NavItem[] = [
         icon: coffeeBean,
         children: [
             {
-                title: 'Coffees',
+                title: 'Brands',
                 href: '/',
-                icon: coffeeBean,
+                icon: Store,
             },
             {
                 title: 'Batches',
                 href: '/',
                 icon: Boxes,
+            },
+            {
+                title: 'My Coffees',
+                href: '/',
+                icon: coffeeBean,
             },
             {
                 title: 'Recipes',
