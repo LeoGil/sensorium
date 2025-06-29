@@ -36,4 +36,14 @@ export interface User {
     updated_at: string;
 }
 
+export interface Brand {
+    id: number;
+    user_id: number;
+    logo: string;
+    name: string;
+    url: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

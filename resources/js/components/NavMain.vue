@@ -61,7 +61,7 @@ function isActive(href: string) {
                             <SidebarMenuSub>
                                 <SidebarMenuSubItem v-for="sub in item.children" :key="sub.title">
                                     <SidebarMenuSubButton as-child :is-active="isActive(sub.href)">
-                                        <Link :href="item.href" class="flex items-center space-x-2">
+                                        <Link :href="sub.href" class="flex items-center space-x-2">
                                         <component
                                             v-if="typeof sub.icon === 'function' || typeof sub.icon === 'object' && !sub.icon?.length"
                                             :is="sub.icon" />

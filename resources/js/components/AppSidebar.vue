@@ -39,7 +39,7 @@ const mainNavItems: NavItem[] = [
         children: [
             {
                 title: 'Brands',
-                href: '/',
+                href: '/brands',
                 icon: Store,
             },
             {
