@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, PillBottle, Boxes, Bolt, Notebook, Store } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutDashboard, History, PackageOpen, NotepadText, Archive, Boxes, Bolt, Notebook, Store, GlassWater } from 'lucide-vue-next';
 import { coffeeBean, coffeemaker, toolbox } from '@lucide/lab';
 import AppLogo from './AppLogo.vue';
 
@@ -68,11 +68,23 @@ const mainNavItems: NavItem[] = [
         title: 'Inventory',
         href: '/',
         icon: PackageOpen,
+        children: [
+            {
+                title: 'My Inventory',
+                href: '/',
+                icon: PackageOpen,
+            },
+            {
+                title: 'Containers',
+                href: '/',
+                icon: Archive,
+            }
+        ]
     },
     {
-        title: 'Containers',
+        title: 'Waters',
         href: '/',
-        icon: PillBottle,
+        icon: GlassWater,
     },
     {
         title: 'Reports',
