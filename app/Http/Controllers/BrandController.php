@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\Brand\StoreBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BrandController extends Controller
@@ -31,11 +32,12 @@ class BrandController extends Controller
     {
         $brand = $request->validated();
 
+        $logo = $brand['logo'] ?? null;
+
         $brand['user_id'] = auth()->id();
 
-        if ($request->hasFile('logo')) {
-            $brand['logo'] = $request->file('logo')->store('brands', 'public');
-            $brand['logo'] = asset('storage/' . $brand['logo']);
+        if ($logo) {
+            $brand['logo'] = $logo->store('brands', 'public');
         }
 
         Brand::create($brand);
@@ -64,7 +66,22 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        //
+        $brandData = $request->validated();
+
+        $logo = $brandData['logo'] ?? null;
+
+        if ($logo) {
+            $brandData['logo'] = $logo->store('brands', 'public');
+            if ($brand->logo) {
+                Storage::disk('public')->delete($brand->logo);
+            }
+        } else {
+            $brandData['logo'] = $brand->logo;
+        }
+
+        $brand->update($brandData);
+
+        return to_route('brands.index');
     }
 
     /**

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import InputError from '@/components/InputError.vue';
 import { toast } from 'vue-sonner';
+import { ref, watch } from 'vue';
 
 interface Props {
     method: 'post' | 'patch'
@@ -17,16 +18,21 @@ const props = defineProps<Props>()
 const form = useForm<{
     name: string;
     url: string;
-    logo: string | File;
+    logo?: string | File;
 }>({
     name: props.initial.name ?? '',
     url: props.initial.url ?? '',
-    logo: props.initial.logo ?? '',
+    logo: '',
 });
 
 const emit = defineEmits<{
     (e: 'success'): void
 }>()
+
+form.transform((data) => ({
+    ...data,
+    _method: props.method.toUpperCase(),
+}));
 
 const submit = () => {
     const isEditing = 'id' in props.initial;
@@ -34,7 +40,8 @@ const submit = () => {
         ? route('brands.update', props.initial.id)
         : route('brands.store');
 
-    form[props.method](formRoute, {
+    form.post(formRoute, {
+        // forceFormData: true,
         onSuccess: () => {
             emit('success')
             toast.success(
@@ -54,6 +61,24 @@ const onFileChange = (event: Event) => {
     }
 };
 
+const logoPreview = ref<string | null>(
+    typeof props.initial.logo === 'string' && props.initial.logo ? props.initial.logo : null
+);
+
+watch(
+    () => form.logo,
+    (newLogo) => {
+        if (newLogo && typeof newLogo !== 'string') {
+            // Show preview for newly selected file
+            logoPreview.value = URL.createObjectURL(newLogo as File);
+        } else if (typeof newLogo === 'string' && newLogo) {
+            logoPreview.value = newLogo;
+        } else {
+            logoPreview.value = null;
+        }
+    }
+);
+
 </script>
 
 <template>
@@ -71,6 +96,9 @@ const onFileChange = (event: Event) => {
             </div>
             <div>
                 <Label for="logo" class="mb-2">Logo</Label>
+                <div v-if="logoPreview" class="my-4 flex justify-center">
+                    <img :src="logoPreview" alt="Current Logo" class="max-h-24 rounded" />
+                </div>
                 <Input id="logo" type="file" accept="image/*" class="mt-1 block w-full" @change="onFileChange" />
                 <InputError :message="form.errors.logo" />
             </div>

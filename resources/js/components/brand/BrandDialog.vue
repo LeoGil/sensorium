@@ -9,7 +9,7 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog'
 import { FunctionalComponent, ref } from 'vue';
-import Form from './Form.vue';
+import Form from './BrandForm.vue';
 import { Brand } from '@/types';
 
 interface Props {

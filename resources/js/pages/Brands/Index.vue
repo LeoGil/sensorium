@@ -2,9 +2,9 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { Brand, BreadcrumbItem } from '@/types';
-import BrandTable from '@/components/brand/table/Table.vue';
+import BrandCard from '@/components/brand/BrandCard.vue';
 import { Plus } from 'lucide-vue-next';
-import Dialog from '@/components/brand/form/Dialog.vue';
+import BrandDialog from '@/components/brand/BrandDialog.vue';
 
 interface Props {
     brands: {
@@ -29,11 +29,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     <AppLayout :breadcrumbs="breadcrumbs">
 
         <Head title="Brands" />
-        <Dialog :icon="Plus" triggerText="New Brand" dialogDescription="Create a new brand for your coffees."
+        <BrandDialog :icon="Plus" triggerText="New Brand" dialogDescription="Create a new brand for your coffees."
             triggerClass="absolute right-4 top-4" dialogTitle="New Brand" />
 
-        <div v-if="brands && brands.data && brands.data.length > 0" class="flex flex-col gap-4 p-4">
-            <BrandTable :brands="brands" />
+        <div v-if="brands && brands.data && brands.data.length > 0" class="p-4">
+            <BrandCard :brands="brands" />
         </div>
         <div v-else class="text-center text-gray-500 py-8">
             No brands found.

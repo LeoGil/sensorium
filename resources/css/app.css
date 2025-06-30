@@ -118,7 +118,7 @@
 
     /* Botões de ação destrutiva (por ex. apagar receita) em vermelho suave */
     --destructive: hsl(5, 70%, 50%);
-    --destructive-foreground: hsl(0, 0%, 100%);
+    --destructive-foreground: hsl(5, 70%, 50%);
 
     /* Bordas sutis, cor de grãos de café moídos */
     --border: hsl(25, 30%, 70%);
@@ -170,7 +170,7 @@
     --accent: hsl(0 0% 14.9%);
     --accent-foreground: hsl(0 0% 98%);
     --destructive: hsl(0 84% 60%);
-    --destructive-foreground: hsl(0 0% 98%);
+    --destructive-foreground: hsl(0 84% 60%);
     --border: hsl(0 0% 14.9%);
     --input: hsl(0 0% 14.9%);
     --ring: hsl(0 0% 83.1%);
