@@ -19,4 +19,9 @@ class Brand extends Model
         'url',
         'logo',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
