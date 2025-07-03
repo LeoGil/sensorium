@@ -46,4 +46,33 @@ export interface Brand {
     updated_at: string;
 }
 
+export interface Coffee {
+    id: number;
+    user_id: number;
+    name: string;
+    description?: string;
+    sensory?: string;
+    farm?: string;
+    variety?: string;
+    region?: string;
+    altitude?: number | null;
+    producer?: string;
+    processing_method?: string;
+    roaster?: string;
+    brand_id: number;
+    image?: string;
+    roast_level_id: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface RoastLevel {
+    id: number;
+    user_id: number;
+    name: string;
+    description?: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;
