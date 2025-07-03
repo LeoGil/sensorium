@@ -28,7 +28,7 @@ class UpdateBrandRequest extends FormRequest
                 'max:255',
             ],
             'url' => [
-                'sometimes',
+                'nullable',
                 'url',
                 'max:255',
             ],

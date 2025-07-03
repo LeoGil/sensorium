@@ -41,7 +41,6 @@ const submit = () => {
         : route('brands.store');
 
     form.post(formRoute, {
-        // forceFormData: true,
         onSuccess: () => {
             emit('success')
             toast.success(
@@ -91,7 +90,7 @@ watch(
             </div>
             <div>
                 <Label for="url" class="mb-2">URL</Label>
-                <Input id="url" type="url" class="mt-1 block w-full" v-model="form.url" required />
+                <Input id="url" type="url" class="mt-1 block w-full" v-model="form.url" />
                 <InputError :message="form.errors.url" />
             </div>
             <div>

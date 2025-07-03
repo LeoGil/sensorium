@@ -28,7 +28,7 @@ class StoreBrandRequest extends FormRequest
                 'max:255',
             ],
             'url' => [
-                'required',
+                'nullable',
                 'url',
                 'max:255',
             ],
