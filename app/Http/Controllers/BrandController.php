@@ -18,7 +18,7 @@ class BrandController extends Controller
     {
         $brands = Brand::where('user_id', auth()->id())
             ->orderBy('name')
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
 
         return Inertia::render('Brands/Index', [
