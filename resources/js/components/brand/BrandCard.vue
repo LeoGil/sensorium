@@ -41,7 +41,7 @@ function deleteBrand(brandId: number) {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <Card v-for="brand in brands.data" :key="brand.id">
             <CardHeader class="flex flex-row items-center gap-4 relative">
                 <DropdownMenu>
