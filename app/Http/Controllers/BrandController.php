@@ -47,28 +47,12 @@ class BrandController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Brand $brand)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Brand $brand)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         Gate::authorize('update', $brand);
-        
+
         $brandData = $request->validated();
 
         $logo = $brandData['logo'] ?? null;
@@ -92,7 +76,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        Gate::authorize('delete', $brand);
+        Gate::authorize('forceDelete', $brand);
 
         if ($brand->logo) {
             Storage::disk('public')->delete($brand->logo);
