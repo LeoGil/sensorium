@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\Brand\StoreBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -66,6 +67,8 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
+        Gate::authorize('update', $brand);
+        
         $brandData = $request->validated();
 
         $logo = $brandData['logo'] ?? null;
@@ -89,6 +92,14 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        Gate::authorize('delete', $brand);
+
+        if ($brand->logo) {
+            Storage::disk('public')->delete($brand->logo);
+        }
+
+        $brand->delete();
+
+        return to_route('brands.index');
     }
 }

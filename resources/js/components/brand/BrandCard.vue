@@ -7,6 +7,8 @@ import { getInitials } from '@/composables/useInitials';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-vue-next'
 import BrandDialog from '@/components/brand/BrandDialog.vue';
+import { toast } from 'vue-sonner';
+import { router } from '@inertiajs/vue3';
 
 const open = ref(false)
 
@@ -20,6 +22,22 @@ interface Props {
 }
 
 defineProps<Props>()
+
+function deleteBrand(brandId: number) {
+    confirm('Are you sure you want to delete this brand?') && router.delete(route('brands.destroy', brandId), {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.success('Brand deleted successfully!', {
+                position: 'top-center',
+            })
+        },
+        onError: () => {
+            toast.error('Failed to delete brand. Please try again.', {
+                position: 'top-center',
+            })
+        }
+    })
+}
 </script>
 
 <template>
@@ -43,8 +61,8 @@ defineProps<Props>()
                             </template>
                         </BrandDialog>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem as-child variant="destructive">
-                            <a href="#" @click.prevent>Delete</a>
+                        <DropdownMenuItem @click="deleteBrand(brand.id)" variant="destructive">
+                            Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

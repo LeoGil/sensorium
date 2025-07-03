@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Policies\BrandPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[UsePolicy(BrandPolicy::class)]
 class Brand extends Model
 {
     /** @use HasFactory<\Database\Factories\BrandFactory> */
