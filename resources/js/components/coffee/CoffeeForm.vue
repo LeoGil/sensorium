@@ -72,6 +72,10 @@ const submit = () => {
     const formRoute = isEditing && props.method === 'patch'
         ? route('coffees.update', props.initial.id)
         : route('coffees.store');
+        
+    if (typeof form.image === 'string') {
+        delete form.image;
+    }
 
     form.post(formRoute, {
         onSuccess: () => {
