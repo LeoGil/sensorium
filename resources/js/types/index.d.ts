@@ -61,6 +61,7 @@ export interface Coffee {
     roaster?: string;
     brand_id: number;
     image?: string;
+    image_url?: string;
     roast_level_id: number;
     created_at: string;
     updated_at: string;

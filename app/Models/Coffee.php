@@ -26,6 +26,8 @@ class Coffee extends Model
         'roast_level_id',
     ];
 
+    protected $appends = ['image_url'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -39,5 +41,10 @@ class Coffee extends Model
     public function roastLevel()
     {
         return $this->belongsTo(RoastLevel::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
     }
 }
