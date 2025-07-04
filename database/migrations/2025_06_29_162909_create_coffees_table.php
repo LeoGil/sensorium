@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('coffees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->text('description')->nullable();
             $table->string('sensory')->nullable();
             $table->string('farm')->nullable();
@@ -21,6 +22,8 @@ return new class extends Migration
             $table->string('region')->nullable();
             $table->integer('altitude')->nullable();
             $table->string('producer')->nullable();
+            $table->string('processing_method')->nullable();
+            $table->string('roaster')->nullable();
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
             $table->foreignId('roast_level_id')->constrained()->onDelete('cascade');

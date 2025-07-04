@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Policies\RoastLevelPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 
+#[UsePolicy(RoastLevelPolicy::class)]
 class RoastLevel extends Model
 {
     protected $fillable = [

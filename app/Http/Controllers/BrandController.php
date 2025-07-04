@@ -21,7 +21,7 @@ class BrandController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        return Inertia::render('Brands/Index', [
+        return Inertia::render('brand/Index', [
             'brands' => $brands,
         ]);
     }
@@ -38,7 +38,7 @@ class BrandController extends Controller
         $brand['user_id'] = auth()->id();
 
         if ($logo) {
-            $brand['logo'] = $logo->store('brands', 'public');
+            $brand['logo'] = Storage::disk('public')->putFile('brands', $logo);
         }
 
         Brand::create($brand);
@@ -58,7 +58,7 @@ class BrandController extends Controller
         $logo = $brandData['logo'] ?? null;
 
         if ($logo) {
-            $brandData['logo'] = $logo->store('brands', 'public');
+            $brandData['logo'] = Storage::disk('public')->putFile('brands', $logo);
             if ($brand->logo) {
                 Storage::disk('public')->delete($brand->logo);
             }

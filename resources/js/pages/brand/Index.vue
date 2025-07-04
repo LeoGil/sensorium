@@ -36,8 +36,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div v-if="brands && brands.data && brands.data.length > 0" class="p-4">
             <BrandCard :brands="brands" />
             <div class="flex justify-end mt-4">
-                <PaginationWrapper v-if="brands.last_page > 1" :current-page="brands.current_page" :per-page="brands.per_page"
-                    :total="brands.total" />
+                <PaginationWrapper v-if="brands.last_page > 1" :current-page="brands.current_page"
+                    :per-page="brands.per_page" :total="brands.total" />
             </div>
         </div>
         <div v-else class="text-center text-gray-500 py-8">
