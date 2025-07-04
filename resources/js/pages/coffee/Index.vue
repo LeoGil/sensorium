@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CoffeeCard from '@/components/coffee/CoffeeCard.vue';
-import CoffeeDialog from '@/components/coffee/CoffeeDialog.vue';
 import PaginationWrapper from '@/components/PaginationWrapper.vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
