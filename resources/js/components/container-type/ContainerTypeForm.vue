@@ -60,7 +60,7 @@ const submit = () => {
         <div class="flex flex-col gap-4">
             <div>
                 <Label for="name" class="mb-2">Name</Label>
-                <Input id="name" class="mt-1 block w-full" v-model="form.name" required />
+                <Input id="name" class="mt-1 block w-full" v-model="form.name" placeholder="e.g. Bag, Box, Falcon Tube, Airscape" required />
                 <InputError :message="form.errors.name" />
             </div>
             <div>
