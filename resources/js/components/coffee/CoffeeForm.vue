@@ -1,4 +1,3 @@
-'
 <script setup lang="ts">
 import { Brand, Coffee, RoastLevel } from '@/types';
 import { Link, useForm } from '@inertiajs/vue3';
