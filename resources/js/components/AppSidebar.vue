@@ -80,8 +80,8 @@ const mainNavItems: NavItem[] = [
                 icon: PackageOpen,
             },
             {
-                title: 'Containers',
-                href: '/',
+                title: 'Container Types',
+                href: '/container-types',
                 icon: Archive,
             }
         ]

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('containers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->integer('control_number')->nullable();
-            $table->decimal('capacity');
+            $table->foreignId('container_type_id')->constrained()->onDelete('cascade');
+            $table->string('serial_number')->nullable();
+            $table->decimal('capacity_used')->default(0);
             $table->timestamps();
         });
     }

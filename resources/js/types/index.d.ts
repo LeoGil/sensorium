@@ -67,6 +67,15 @@ export interface Coffee {
     updated_at: string;
 }
 
+export interface ContainerType {
+    id: number;
+    user_id: number;
+    name: string;
+    capacity: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface RoastLevel {
     id: number;
     user_id: number;
