@@ -1,7 +1,7 @@
 '
 <script setup lang="ts">
 import { Brand, Coffee, RoastLevel } from '@/types';
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -248,6 +248,9 @@ watch(
                     <Button :disabled="form.processing">
                         <span v-if="form.processing">Saving...</span>
                         <span v-else>Save</span>
+                    </Button>
+                    <Button as-child variant="outline">
+                        <Link :href="route('coffees.index')">Go Back</Link> 
                     </Button>
                 </div>
             </div>

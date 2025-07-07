@@ -67,7 +67,9 @@ function deleteCoffee(coffeeId: number) {
                     <AvatarFallback>{{ getInitials(coffee.name) }}</AvatarFallback>
                 </Avatar>
                 <div>
-                    <div class="font-semibold text-lg">{{ coffee.name }}</div>
+                    <Link :href="route('coffees.edit', coffee.id)" class="hover:underline">
+                        <div class="font-semibold text-lg">{{ coffee.name }}</div>
+                    </Link>
                 </div>
             </CardHeader>
         </Card>
