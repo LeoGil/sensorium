@@ -32,8 +32,7 @@ const pageTitle = 'Create Coffee';
 
         <Head :title="pageTitle" />
         <div class="w-full px-4 md:p-8">
-            <CoffeeForm :initial="{}" method="post" :action="route('coffees.store')" :roastLevels="roastLevels"
-                :brands="brands" />
+            <CoffeeForm :initial="{}" mode="create" :roastLevels="roastLevels" :brands="brands" />
         </div>
     </AppLayout>
 </template>

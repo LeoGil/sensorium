@@ -33,9 +33,7 @@ const pageTitle = `Edit Coffee – ${props.coffee.name}`;
 
         <Head :title="pageTitle" />
         <div class="w-full px-4 md:p-8">
-            <CoffeeForm :initial="coffee" method="patch"
-                :action="route('coffees.update', coffee.id)"
-                :roastLevels="roastLevels" :brands="brands" />
+            <CoffeeForm :initial="coffee" mode="edit" :roastLevels="roastLevels" :brands="brands" />
         </div>
 
     </AppLayout>

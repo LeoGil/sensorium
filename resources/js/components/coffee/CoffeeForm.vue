@@ -20,8 +20,7 @@ import {
 import { Textarea } from '../ui/textarea';
 
 interface Props {
-    method: 'post' | 'patch'
-    action: string
+    mode: 'create' | 'edit'
     initial: Partial<Coffee>
     roastLevels: RoastLevel[]
     brands: Brand[]
@@ -64,12 +63,12 @@ const emit = defineEmits<{
 
 form.transform((data) => ({
     ...data,
-    _method: props.method.toUpperCase(),
+    _method: props.mode.toUpperCase(),
 }));
 
 const submit = () => {
-    const isEditing = 'id' in props.initial;
-    const formRoute = isEditing && props.method === 'patch'
+    const isEditing = props.mode === 'edit';
+    const formRoute = isEditing
         ? route('coffees.update', props.initial.id)
         : route('coffees.store');
         
