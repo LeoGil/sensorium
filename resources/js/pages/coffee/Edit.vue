@@ -18,6 +18,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Coffees',
         href: '/coffees',
     },
+    {
+        title: props.coffee.name,
+        href: route('coffees.edit', props.coffee.id),
+    }
 ];
 
 const pageTitle = `Edit Coffee – ${props.coffee.name}`;

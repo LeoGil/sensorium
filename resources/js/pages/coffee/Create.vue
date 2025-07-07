@@ -17,6 +17,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Coffees',
         href: '/coffees',
     },
+    {
+        title: 'Create Coffee',
+        href: route('coffees.create'),
+    }
 ];
 
 const pageTitle = 'Create Coffee';
