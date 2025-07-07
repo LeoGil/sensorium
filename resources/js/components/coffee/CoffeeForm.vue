@@ -67,8 +67,7 @@ form.transform((data) => ({
 }));
 
 const submit = () => {
-    const isEditing = props.mode === 'edit';
-    const formRoute = isEditing
+    const formRoute = props.mode === 'edit'
         ? route('coffees.update', props.initial.id)
         : route('coffees.store');
         
@@ -80,7 +79,7 @@ const submit = () => {
         onSuccess: () => {
             emit('success')
             toast.success(
-                isEditing ? 'Coffee updated with success!' : 'Coffee created with success!',
+                props.mode === 'edit' ? 'Coffee updated with success!' : 'Coffee created with success!',
                 { position: 'top-center' }
             )
         },
