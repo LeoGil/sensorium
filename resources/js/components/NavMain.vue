@@ -11,7 +11,6 @@ import {
 
 import {
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
@@ -37,7 +36,6 @@ function isActive(href: string) {
 
 <template>
     <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
         <SidebarMenu>
             <template v-for="item in items" :key="item.title">
                 <Collapsible v-if="item.children && item.children.length"
