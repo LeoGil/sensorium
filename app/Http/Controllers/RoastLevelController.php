@@ -67,31 +67,33 @@ class RoastLevelController extends Controller
     {
         Gate::authorize('createDefault', RoastLevel::class);
 
+        $userId = auth()->id();
+
         $roastLevels = [
             [
                 'name' => 'Claro',
                 'description' => 'Claro',
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
             ],
             [
                 'name' => 'Médio Claro',
                 'description' => 'Médio Claro',
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
             ],
             [
                 'name' => 'Médio',
                 'description' => 'Médio',
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
             ],
             [
                 'name' => 'Médio Escuro',
                 'description' => 'Médio Escuro',
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
             ],
             [
                 'name' => 'Escuro',
                 'description' => 'Escuro',
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
             ],
         ];
 
