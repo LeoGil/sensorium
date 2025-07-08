@@ -75,6 +75,12 @@ class StoreCoffeeRequest extends FormRequest
             'roast_level_id' => [
                 'required',
                 'exists:roast_levels,id'
+            ],
+            'score' => [
+                'nullable',
+                'integer',
+                'min:0',
+                'max:100'
             ]
         ];
     }

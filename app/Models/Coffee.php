@@ -24,6 +24,7 @@ class Coffee extends Model
         'brand_id',
         'image',
         'roast_level_id',
+        'score',
     ];
 
     protected $appends = ['image_url'];
