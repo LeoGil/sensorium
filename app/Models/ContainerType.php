@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Policies\ContainerTypePolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 
+#[UsePolicy(ContainerTypePolicy::class)]
 class ContainerType extends Model
 {
     protected $fillable = [
