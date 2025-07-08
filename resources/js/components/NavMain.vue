@@ -44,10 +44,9 @@ function isActive(href: string) {
                     <SidebarMenuItem>
                         <CollapsibleTrigger as-child>
                             <SidebarMenuButton :tooltip="item.title" :is-active="isActive(item.href)">
-                                <!-- Corrigido: renderiza componente Vue diretamente ou usa Icon com iconNode -->
                                 <component
                                     v-if="typeof item.icon === 'function' || (typeof item.icon === 'object' && 'length' in item.icon) && !item.icon?.length"
-                                    :is="item.icon" class="mr-2" />
+                                    :is="item.icon" class="mr-2" :class="item.iconClass" />
                                 <Icon v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
                                 <span>{{ item.title }}</span>
                                 <ChevronRight
@@ -62,7 +61,7 @@ function isActive(href: string) {
                                         <Link :href="sub.href" class="flex items-center space-x-2">
                                         <component
                                             v-if="typeof sub.icon === 'function' || typeof sub.icon === 'object' && !sub.icon?.length"
-                                            :is="sub.icon" />
+                                            :is="sub.icon" :class="sub.iconClass" />
                                         <Icon v-else :is="Icon" :iconNode="sub.icon" />
                                         <span>{{ sub.title }}</span>
                                         </Link>
@@ -72,14 +71,12 @@ function isActive(href: string) {
                         </CollapsibleContent>
                     </SidebarMenuItem>
                 </Collapsible>
-
                 <SidebarMenuItem v-else>
                     <SidebarMenuButton :is-active="isActive(item.href)" as-child :tooltip="item.title">
                         <Link :href="item.href" class="flex items-center space-x-2">
-                        <!-- Mesmo fix para ícones no menu simples -->
                         <component
                             v-if="typeof item.icon === 'function' || typeof item.icon === 'object' && !item.icon?.length"
-                            :is="item.icon" class="mr-2" />
+                            :is="item.icon" class="mr-2" :class="item.iconClass" />
                         <Icon v-else :is="Icon" :iconNode="item.icon" class="mr-2" />
                         <span>{{ item.title }}</span>
                         </Link>

@@ -29,6 +29,7 @@ const mainNavItems: NavItem[] = [
                 title: 'Filters',
                 href: '/filters',
                 icon: Cone,
+                iconClass: 'rotate-180'
             },
             {
                 title: 'Grinders',
