@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Brand::class);
     }
+
+    public function roastLevels()
+    {
+        return $this->hasMany(RoastLevel::class);
+    }
 }

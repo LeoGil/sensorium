@@ -19,10 +19,16 @@ Route::get('dashboard', function () {
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('brands', BrandController::class)->names('brands')->except(['show']);
+
     Route::resource('coffees', CoffeeController::class)->names('coffees')->except(['show']);
+
     Route::resource('roast-levels', RoastLevelController::class)->names('roast-levels')->except(['show']);
+    Route::post('roast-levels/create-default', [RoastLevelController::class, 'createDefault'])->name('roast-levels.create-default');
+
     Route::resource('container-types', ContainerTypeController::class)->names('container-types')->except(['show']);
+
     Route::resource('grinders', GrinderController::class)->names('grinders')->except(['show']);
+    
     Route::resource('filters', FilterController::class)->names('filters')->except(['show']);
 });
 

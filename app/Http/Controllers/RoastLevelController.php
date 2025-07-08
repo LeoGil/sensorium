@@ -15,7 +15,7 @@ class RoastLevelController extends Controller
     public function index()
     {
         $roastLevels = RoastLevel::where('user_id', auth()->id())
-            ->orderBy('name', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate(10)
             ->withQueryString();
 
@@ -59,6 +59,45 @@ class RoastLevelController extends Controller
         Gate::authorize('forceDelete', $roastLevel);
 
         $roastLevel->delete();
+
+        return to_route('roast-levels.index');
+    }
+
+    public function createDefault()
+    {
+        Gate::authorize('createDefault', RoastLevel::class);
+
+        $roastLevels = [
+            [
+                'name' => 'Claro',
+                'description' => 'Claro',
+                'user_id' => auth()->id(),
+            ],
+            [
+                'name' => 'Médio Claro',
+                'description' => 'Médio Claro',
+                'user_id' => auth()->id(),
+            ],
+            [
+                'name' => 'Médio',
+                'description' => 'Médio',
+                'user_id' => auth()->id(),
+            ],
+            [
+                'name' => 'Médio Escuro',
+                'description' => 'Médio Escuro',
+                'user_id' => auth()->id(),
+            ],
+            [
+                'name' => 'Escuro',
+                'description' => 'Escuro',
+                'user_id' => auth()->id(),
+            ],
+        ];
+
+        foreach ($roastLevels as $roastLevel) {
+            RoastLevel::create($roastLevel);
+        }
 
         return to_route('roast-levels.index');
     }

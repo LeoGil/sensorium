@@ -23,4 +23,9 @@ class RoastLevelPolicy
     {
         return $user->id === $roastLevel->user_id;
     }
+
+    public function createDefault(User $user): bool
+    {
+        return $user->roastLevels()->count() === 0;
+    }
 }
