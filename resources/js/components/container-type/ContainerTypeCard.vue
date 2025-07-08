@@ -54,7 +54,7 @@ function deleteContainerType(containerTypeId: number) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" class="w-32">
                         <DropdownMenuItem as-child>
-                            <Link :href="route('container-types.edit', containerType.id)">Add Containers</Link>
+                            <Link :href="route('container-types.edit', containerType.id)">Add Items</Link>
                         </DropdownMenuItem>
                         <ContainerTypeDialog dialogTitle="Edit Container Type"
                             dialogDescription="Edit the container type details." :containerType="containerType">
