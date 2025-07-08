@@ -30,7 +30,8 @@ withDefaults(defineProps<{
 const page = usePage()
 
 function isActive(href: string) {
-    return page.url.split('?')[0] === href
+    const current = page.url.split('?')[0];
+    return current === href || current.startsWith(href + '/');
 }
 </script>
 
