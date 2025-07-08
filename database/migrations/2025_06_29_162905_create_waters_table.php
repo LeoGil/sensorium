@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('chlorine')->nullable();
+            $table->decimal('calcium');
+            $table->decimal('magnesium');
             $table->decimal('total_dissolved_solids')->nullable();
-            $table->decimal('hardness')->nullable();
-            $table->decimal('alkalinity')->nullable();
+            $table->decimal('hardness')->nullable()->comment('(Calcium x 2.5) + (Magnesium x 4.2) in mg/L');
+            $table->decimal('bicarbonate');
+            $table->decimal('alkalinity')->nullable()->comment('Bicarbonate x 0.8 in mg/L');
             $table->decimal('ph')->nullable();
             $table->decimal('sodium')->nullable();
             $table->timestamps();
