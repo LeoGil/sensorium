@@ -88,4 +88,15 @@ export interface RoastLevel {
     updated_at: string;
 }
 
+export interface Grinder {
+    id: number;
+    user_id: number;
+    brand: string;
+    name: string;
+    image?: string;
+    image_url?: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

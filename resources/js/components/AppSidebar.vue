@@ -27,7 +27,7 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: 'Grinders',
-                href: '/',
+                href: '/grinders',
                 icon: Bolt,
             }
         ],

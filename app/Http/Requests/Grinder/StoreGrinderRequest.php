@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ContainerType;
+namespace App\Http\Requests\Grinder;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateContainerTypeRequest extends FormRequest
+class StoreGrinderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,15 @@ class UpdateContainerTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'brand' => [
                 'required',
                 'string',
                 'max:255',
             ],
-            'capacity' => [
+            'name' => [
                 'required',
-                'numeric',
-                'min:0',
+                'string',
+                'max:255',
             ],
             'image' => [
                 'nullable',
@@ -39,4 +39,4 @@ class UpdateContainerTypeRequest extends FormRequest
             ],
         ];
     }
-}
+} 
