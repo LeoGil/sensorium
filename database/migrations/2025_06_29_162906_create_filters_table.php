@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('brand');
             $table->string('name');
+            $table->integer('quantity')->comment('Quantity of filters');
             $table->text('description')->nullable();
             $table->timestamps();
         });
