@@ -8,6 +8,8 @@ import { toast } from 'vue-sonner';
 import { router } from '@inertiajs/vue3';
 import ContainerTypeDialog from './ContainerTypeDialog.vue';
 import { ref } from 'vue';
+import { getInitials } from '@/composables/useInitials';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const open = ref(false)
 
@@ -68,6 +70,11 @@ function deleteContainerType(containerTypeId: number) {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <Avatar class="size-15">
+                    <AvatarImage v-if="containerType.image_url" :src="containerType.image_url" :alt="containerType.name"
+                        class="w-full h-full object-contain object-center" />
+                    <AvatarFallback>{{ getInitials(containerType.name) }}</AvatarFallback>
+                </Avatar>
                 <div>
                     <Link :href="route('container-types.edit', containerType.id)" class="hover:underline">
                     <div class="font-semibold text-lg">{{ containerType.name }}</div>

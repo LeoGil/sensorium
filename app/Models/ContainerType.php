@@ -11,10 +11,18 @@ class ContainerType extends Model
         'name',
         'user_id',
         'capacity',
+        'image',
     ];
+
+    protected $appends = ['image_url'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
     }
 }

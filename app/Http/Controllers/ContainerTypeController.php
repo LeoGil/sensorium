@@ -7,6 +7,7 @@ use App\Http\Requests\ContainerType\UpdateContainerTypeRequest;
 use App\Models\ContainerType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ContainerTypeController extends Controller
@@ -33,6 +34,11 @@ class ContainerTypeController extends Controller
     {
         $containerTypeData = $request->validated();
         $containerTypeData['user_id'] = auth()->id();
+
+        if ($request->hasFile('image')) {
+            $containerTypeData['image'] = Storage::disk('public')->putFile('container-types', $request->file('image'));
+        }
+
         ContainerType::create($containerTypeData);
         return to_route('container-types.index');
     }
@@ -46,6 +52,13 @@ class ContainerTypeController extends Controller
 
         $containerTypeData = $request->validated();
 
+        if ($request->hasFile('image')) {
+            if ($containerType->image) {
+                Storage::disk('public')->delete($containerType->image);
+            }
+            $containerTypeData['image'] = Storage::disk('public')->putFile('container-types', $request->file('image'));
+        }
+
         $containerType->update($containerTypeData);
         return to_route('container-types.index');
     }
@@ -56,6 +69,10 @@ class ContainerTypeController extends Controller
     public function destroy(ContainerType $containerType)
     {
         Gate::authorize('delete', $containerType);
+
+        if ($containerType->image) {
+            Storage::disk('public')->delete($containerType->image);
+        }
 
         $containerType->delete();
         return to_route('container-types.index');

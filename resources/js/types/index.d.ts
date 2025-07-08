@@ -72,6 +72,8 @@ export interface ContainerType {
     user_id: number;
     name: string;
     capacity: number;
+    image?: string;
+    image_url?: string;
     created_at: string;
     updated_at: string;
 }
