@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { Folder, LayoutDashboard, History, PackageOpen, NotepadText, Archive, Boxes, Bolt, Notebook, Store, GlassWater, Flame } from 'lucide-vue-next';
+import { Folder, LayoutDashboard, History, PackageOpen, NotepadText, Archive, Boxes, Bolt, Notebook, Store, GlassWater, Flame, Cone } from 'lucide-vue-next';
 import { coffeeBean, coffeemaker, toolbox } from '@lucide/lab';
 import AppLogo from './AppLogo.vue';
 
@@ -24,6 +24,11 @@ const mainNavItems: NavItem[] = [
                 title: 'Brewing Methods',
                 href: '/',
                 icon: coffeemaker,
+            },
+            {
+                title: 'Filters',
+                href: '/filters',
+                icon: Cone,
             },
             {
                 title: 'Grinders',
