@@ -1,0 +1,166 @@
+# Sensorium CRUD Generation Rules
+
+## Overview
+Siga estas regras ao gerar CRUD para qualquer nova entidade. Isso garante consistência no backend e frontend, e segue as convenções dos recursos já existentes.
+
+---
+
+## Checklist Rápido para Novo CRUD
+
+- [ ] Criar Model em `app/Models/`
+- [ ] Criar Migration em `database/migrations/`
+- [ ] Criar Requests em `app/Http/Requests/Entity/`
+- [ ] Criar Policy em `app/Policies/`
+- [ ] Criar Controller em `app/Http/Controllers/`
+- [ ] Registrar rota em `routes/web.php`
+- [ ] Criar interface TypeScript em `resources/js/types/index.d.ts`
+- [ ] Criar componentes Vue em `resources/js/components/entity/`
+- [ ] Criar página principal em `resources/js/pages/entity/Index.vue`
+- [ ] Garantir ownership e policies
+- [ ] Testar CRUD completo
+
+---
+
+## Fluxo Visual
+
+```mermaid
+graph TD
+    A[Migration] --> B[Model]
+    B --> C[Policy]
+    B --> D[Requests]
+    B --> E[Controller]
+    E --> F[Rota]
+    E --> G[Frontend (Vue/Inertia)]
+    G --> H[Componentes e Página]
+```
+
+---
+
+## CRUD Generation Guidelines
+
+### 1. **Backend (Laravel)**
+- **Model:**  
+  - Local: `app/Models/Entity.php`
+  - Use `#[UsePolicy(EntityPolicy::class)]` se usar policies.
+  - `$fillable` deve refletir os campos da migration.
+  - Exemplo:
+    ```php
+    #[UsePolicy(EntityPolicy::class)]
+    class Entity extends Model {
+        protected $fillable = ['user_id', 'name', ...];
+        public function user() { return $this->belongsTo(User::class); }
+    }
+    ```
+- **Migration:**  
+  - Local: `database/migrations/`
+  - Siga o padrão Laravel.
+  - Exemplo:
+    ```php
+    $table->id();
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');
+    $table->string('name');
+    $table->timestamps();
+    ```
+- **Requests:**  
+  - Local: `app/Http/Requests/Entity/StoreEntityRequest.php` e `UpdateEntityRequest.php`
+  - Regras devem refletir a migration e lógica de negócio.
+  - Exemplo:
+    ```php
+    public function rules(): array {
+        return ['name' => 'required|string|max:255'];
+    }
+    ```
+- **Policy:**  
+  - Local: `app/Policies/EntityPolicy.php`
+  - Implemente ao menos `update`, `delete`, `forceDelete` para ownership.
+  - Exemplo:
+    ```php
+    public function update(User $user, Entity $entity): bool {
+        return $user->id === $entity->user_id;
+    }
+    ```
+- **Controller:**  
+  - Local: `app/Http/Controllers/EntityController.php`
+  - Use Inertia para renderização.
+  - Métodos: `index`, `store`, `update`, `destroy`.
+  - Use request classes para validação.
+  - Use `Gate::authorize` para update/delete.
+- **Routes:**  
+  - Registre a resource route em `routes/web.php`:
+    ```php
+    Route::resource('entities', EntityController::class)->names('entities')->except(['show']);
+    ```
+
+### 2. **Frontend (Vue + Inertia)**
+- **TypeScript Type:**  
+  - Adicione interface em `resources/js/types/index.d.ts`.
+  - Exemplo:
+    ```ts
+    export interface Entity {
+        id: number;
+        user_id: number;
+        name: string;
+        // outros campos
+    }
+    ```
+- **Components:**  
+  - Crie diretório: `resources/js/components/entity/`
+  - Componentes:
+    - `EntityForm.vue` (formulário)
+    - `EntityDialog.vue` (modal)
+    - `EntityCard.vue` (card/listagem)
+- **Page:**  
+  - `resources/js/pages/entity/Index.vue` para listagem principal.
+  - Use os componentes acima.
+  - Adicione paginação se necessário.
+- **UI/UX:**  
+  - Use UI primitives existentes (Button, Input, etc.).
+  - Use Inertia para formulários e feedback (toasts).
+
+### 3. **General Conventions**
+- **Naming:**  
+  - Model, policy, request, controller: singular.
+  - Rotas e diretórios: plural.
+- **Ownership:**  
+  - Todas entidades têm `user_id`.
+  - Policies restringem update/delete ao dono.
+- **No Show Route:**  
+  - Omitir `show` por padrão.
+
+### 4. **Como solicitar um CRUD**
+Quando quiser um novo CRUD, basta pedir:
+> Crie o CRUD completo para [Entidade], igual ao [Referência].
+
+Se quiser campos ou comportamentos customizados, especifique no pedido.
+
+---
+
+## Mensagens de Erro e Feedback
+
+- Mensagens de validação devem ser claras e amigáveis.
+- Use toasts para feedback de sucesso/erro no frontend.
+
+---
+
+## FAQ
+
+**Quando criar o método/rota `show`?**  
+> Apenas se houver necessidade de exibir detalhes de uma entidade em página separada.
+
+**Como lidar com relacionamentos?**  
+> Use Eloquent (`belongsTo`, `hasMany`) e inclua os relacionamentos necessários no Model e nas queries do Controller.
+
+**Como garantir que só o dono edite/exclua?**  
+> Sempre implemente e use policies com checagem de `user_id`.
+
+---
+
+## Exemplos Reais
+
+- Veja `app/Models/Brand.php`, `app/Policies/BrandPolicy.php`, `resources/js/components/brand/`, `resources/js/pages/brand/Index.vue` para exemplos completos.
+
+---
+description:
+globs:
+alwaysApply: false
+---

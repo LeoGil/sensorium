@@ -9,7 +9,23 @@ Este arquivo orienta o GitHub Copilot a seguir as convenções e padrões de có
 * **Padronizar sugestões** do Copilot em todo o projeto Sensorium.
 * **Exemplificar** com o CRUD de Brand, mas cobrir também: outros modelos, controllers, validações, uploads, autorizações, Inertia/Vue, estruturas de pastas e rotas.
 
-## 2. Exemplo de CRUD de Brand (Padrão Sensorium)
+## 2. Checklist Rápido para Novo CRUD
+
+- [ ] Criar Model em `app/Models/`
+- [ ] Criar Migration em `database/migrations/`
+- [ ] Criar Requests em `app/Http/Requests/Entity/`
+- [ ] Criar Policy em `app/Policies/`
+- [ ] Criar Controller em `app/Http/Controllers/`
+- [ ] Registrar rota em `routes/web.php`
+- [ ] Criar interface TypeScript em `resources/js/types/index.d.ts`
+- [ ] Criar componentes Vue em `resources/js/components/entity/`
+- [ ] Criar página principal em `resources/js/pages/entity/Index.vue`
+- [ ] Garantir ownership e policies
+- [ ] Testar CRUD completo
+
+---
+
+## 3. Exemplo de CRUD de Brand (Padrão Sensorium)
 
 > **Caminhos no repositório**:
 >
@@ -18,7 +34,7 @@ Este arquivo orienta o GitHub Copilot a seguir as convenções e padrões de có
 > * Requests: `app/Http/Requests/Brand/StoreBrandRequest.php`, `UpdateBrandRequest.php`
 > * Controller: `app/Http/Controllers/BrandController.php`
 > * Policy: `app/Policies/BrandPolicy.php`
-> * Views Vue: `resources/js/Pages/Brands/` (Index.vue, Create.vue, Edit.vue, Show\.vue)
+> * Views Vue: `resources/js/Pages/Brands/` (Index.vue, Create.vue, Edit.vue, Show.vue)
 > * Rotas: `routes/web.php` → `Route::resource('brands', BrandController::class)`
 
 1. **Modelo**: use `$fillable`, relacionamentos Eloquent com `belongsTo`/`hasMany`.
@@ -30,7 +46,9 @@ Este arquivo orienta o GitHub Copilot a seguir as convenções e padrões de có
 
 Copilot deve espelhar este fluxo para quaisquer outros recursos (ex: `Product`, `Category`, `User` etc.).
 
-## 3. Adaptação para Outros Módulos
+---
+
+## 4. Adaptação para Outros Módulos
 
 * **Novo Model**: `php artisan make:model Nome -m -f` sugerido automaticamente.
 * **Requests**: scaffolded com regras semelhantes (`StoreXRequest`, `UpdateXRequest`).
@@ -41,7 +59,9 @@ Copilot deve espelhar este fluxo para quaisquer outros recursos (ex: `Product`, 
 
 Copilot deve mapear cada passo do CRUD de Brand para novas entidades.
 
-## 4. Convenções Gerais de Código
+---
+
+## 5. Convenções Gerais de Código
 
 * **Namespaces e Pastas**: `app/Models`, `app/Http/Controllers`, `app/Http/Requests/<Entity>`, `app/Policies`.
 * **Nomes**: Model singular PascalCase; Controller sufixo `Controller`; Requests `StoreXRequest`, `UpdateXRequest`; Policies `XPolicy`.
@@ -49,7 +69,29 @@ Copilot deve mapear cada passo do CRUD de Brand para novas entidades.
 * **Validação e Autorização**: sempre usar Form Requests e Policies/Gates.
 * **Inertia + Vue**: usar `Inertia::render('Pages/Entity/Action')`, `useForm()` e `Link` para navegação.
 
-## 5. Exemplos de Snippets para Copilot
+---
+
+## 6. Mensagens de Erro e Feedback
+
+- Mensagens de validação devem ser claras e amigáveis.
+- Use toasts para feedback de sucesso/erro no frontend.
+
+---
+
+## 7. FAQ
+
+**Quando criar o método/rota `show`?**  
+> Apenas se houver necessidade de exibir detalhes de uma entidade em página separada.
+
+**Como lidar com relacionamentos?**  
+> Use Eloquent (`belongsTo`, `hasMany`) e inclua os relacionamentos necessários no Model e nas queries do Controller.
+
+**Como garantir que só o dono edite/exclua?**  
+> Sempre implemente e use policies com checagem de `user_id`.
+
+---
+
+## 8. Exemplos de Snippets para Copilot
 
 * **Gerar Model com Migration e Factory**:
 
