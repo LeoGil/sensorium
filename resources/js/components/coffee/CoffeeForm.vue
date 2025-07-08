@@ -64,7 +64,7 @@ const emit = defineEmits<{
 
 form.transform((data) => ({
     ...data,
-    _method: props.mode.toUpperCase(),
+    _method: props.mode === 'edit' ? 'patch' : 'post',
 }));
 
 const submit = () => {
@@ -84,6 +84,12 @@ const submit = () => {
                 { position: 'top-center' }
             )
         },
+        onError: (errors) => {
+            console.log(errors)
+            toast.error('Failed to save coffee. Please try again.', {
+                position: 'top-center',
+            })
+        }
     });
 }
 
