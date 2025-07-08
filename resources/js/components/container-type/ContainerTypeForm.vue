@@ -45,6 +45,10 @@ const submit = () => {
         ? route('container-types.update', props.initial.id)
         : route('container-types.store');
 
+    if (typeof form.image === 'string') {
+        delete form.image;
+    }
+
     form.post(formRoute, {
         onSuccess: () => {
             emit('success')
@@ -53,6 +57,12 @@ const submit = () => {
                 { position: 'top-center' }
             )
         },
+        onError: (errors) => {
+            console.log(errors)
+            toast.error('Failed to save container type. Please try again.', {
+                position: 'top-center',
+            })
+        }
     });
 }
 
