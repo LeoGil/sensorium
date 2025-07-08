@@ -47,8 +47,7 @@ const open = ref(false)
                     {{ dialogDescription }}
                 </DialogDescription>
             </DialogHeader>
-            <RoastLevelForm @success="open = false" :method="roastLevel ? 'patch' : 'post'"
-                :action="roastLevel ? route('roast-levels.update', roastLevel.id) : route('roast-levels.store')"
+            <RoastLevelForm @success="open = false" :mode="roastLevel ? 'edit' : 'create'"
                 :initial="roastLevel ?? {}" />
         </DialogContent>
     </Dialog>

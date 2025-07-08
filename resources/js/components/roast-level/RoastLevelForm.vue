@@ -9,8 +9,7 @@ import { toast } from 'vue-sonner';
 import { Textarea } from '../ui/textarea';
 
 interface Props {
-    method: 'post' | 'patch'
-    action: string
+    mode: 'create' | 'edit'
     initial: Partial<RoastLevel>
 }
 const props = defineProps<Props>()
@@ -29,12 +28,11 @@ const emit = defineEmits<{
 
 form.transform((data) => ({
     ...data,
-    _method: props.method.toUpperCase(),
+    _method: props.mode === 'edit' ? 'patch' : 'post',
 }));
 
 const submit = () => {
-    const isEditing = 'id' in props.initial;
-    const formRoute = isEditing && props.method === 'patch'
+    const formRoute = props.mode === 'edit'
         ? route('roast-levels.update', props.initial.id)
         : route('roast-levels.store');
 
@@ -42,7 +40,7 @@ const submit = () => {
         onSuccess: () => {
             emit('success')
             toast.success(
-                isEditing ? 'Roast level updated with success!' : 'Roast level created with success!',
+                props.mode === 'edit' ? 'Roast level updated with success!' : 'Roast level created with success!',
                 { position: 'top-center' }
             )
         },
