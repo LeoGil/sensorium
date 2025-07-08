@@ -9,8 +9,7 @@ import { toast } from 'vue-sonner';
 import { ref, watch } from 'vue';
 
 interface Props {
-    method: 'post' | 'patch'
-    action: string
+    mode: 'create' | 'edit'
     initial: Partial<Brand>
 }
 const props = defineProps<Props>()
@@ -31,12 +30,11 @@ const emit = defineEmits<{
 
 form.transform((data) => ({
     ...data,
-    _method: props.method.toUpperCase(),
+    _method: props.mode === 'edit' ? 'patch' : 'post',
 }));
 
 const submit = () => {
-    const isEditing = 'id' in props.initial;
-    const formRoute = isEditing && props.method === 'patch'
+    const formRoute = props.mode === 'edit'
         ? route('brands.update', props.initial.id)
         : route('brands.store');
 
@@ -44,7 +42,7 @@ const submit = () => {
         onSuccess: () => {
             emit('success')
             toast.success(
-                isEditing ? 'Brand updated with success!' : 'Brand created with success!',
+                props.mode === 'edit' ? 'Brand updated with success!' : 'Brand created with success!',
                 { position: 'top-center' }
             )
         },

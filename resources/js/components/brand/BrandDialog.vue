@@ -47,8 +47,7 @@ const open = ref(false)
                     {{ dialogDescription }}
                 </DialogDescription>
             </DialogHeader>
-            <Form @success="open = false" :method="brand ? 'patch' : 'post'"
-                :action="brand ? route('brands.update', brand.id) : route('brands.store')" :initial="brand ?? {}" />
+            <Form @success="open = false" :mode="brand ? 'edit' : 'create'" :initial="brand ?? {}" />
         </DialogContent>
     </Dialog>
 </template>
