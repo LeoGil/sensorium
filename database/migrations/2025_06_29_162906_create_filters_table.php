@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('filters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('brand');
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamps();
