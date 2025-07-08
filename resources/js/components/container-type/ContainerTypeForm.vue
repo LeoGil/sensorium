@@ -66,9 +66,7 @@ const onFileChange = (event: Event) => {
 };
 
 const imagePreview = ref<string | null>(
-    (props.initial.image_url && typeof props.initial.image_url === 'string')
-        ? props.initial.image_url
-        : (typeof props.initial.image === 'string' && props.initial.image ? props.initial.image : null)
+    typeof props.initial.image_url === 'string' && props.initial.image_url ? props.initial.image_url : null
 );
 
 watch(
