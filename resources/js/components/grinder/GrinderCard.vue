@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardHeader } from '@/components/ui/card'
 import { Grinder } from '@/types';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
-import { Link } from '@inertiajs/vue3';
 import { MoreHorizontal } from 'lucide-vue-next'
 import { toast } from 'vue-sonner';
 import { router } from '@inertiajs/vue3';
@@ -72,11 +71,8 @@ function deleteGrinder(grinderId: number) {
                         class="w-full h-full object-contain object-center" />
                     <AvatarFallback>{{ getInitials(grinder.name) }}</AvatarFallback>
                 </Avatar>
-                <div class="font-semibold text-lg">{{ grinder.name }}</div>
+                <div class="font-semibold text-lg">{{ grinder.brand }} {{ grinder.name }}</div>
             </CardHeader>
-            <CardContent class="flex flex-row gap-4">
-                <div class="text-sm text-gray-500">Brand: {{ grinder.brand }}</div>
-            </CardContent>
         </Card>
     </div>
 </template>
