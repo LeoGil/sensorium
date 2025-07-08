@@ -111,4 +111,21 @@ export interface Filter {
     updated_at: string;
 }
 
+export interface Water {
+    id: number;
+    user_id: number;
+    name: string;
+    chlorine?: number | null;
+    calcium: number;
+    magnesium: number;
+    total_dissolved_solids?: number | null;
+    hardness?: number | null;
+    bicarbonate: number;
+    alkalinity?: number | null;
+    ph?: number | null;
+    sodium?: number | null;
+    created_at: string;
+    updated_at: string;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

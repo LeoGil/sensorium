@@ -94,7 +94,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Waters',
-        href: '/',
+        href: '/waters',
         icon: GlassWater,
     },
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\RoastLevelController;
 use App\Http\Controllers\ContainerTypeController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\GrinderController;
+use App\Http\Controllers\WaterController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('grinders', GrinderController::class)->names('grinders')->except(['show']);
     
     Route::resource('filters', FilterController::class)->names('filters')->except(['show']);
+
+    Route::resource('waters', WaterController::class)->names('waters')->except(['show']);
 });
 
 require __DIR__ . '/settings.php';
