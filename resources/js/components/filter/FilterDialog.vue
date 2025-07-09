@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog'
 import { FunctionalComponent, ref } from 'vue';
 import FilterForm from './FilterForm.vue';
-import { Filter } from '@/types';
+import { BrewingMethod, Filter } from '@/types';
 
 interface Props {
     triggerText?: string
@@ -19,6 +19,7 @@ interface Props {
     dialogDescription?: string
     icon?: FunctionalComponent
     filter?: Filter
+    brewingMethods: BrewingMethod[]
 }
 
 defineProps<Props>()
@@ -47,7 +48,8 @@ const open = ref(false)
                     {{ dialogDescription }}
                 </DialogDescription>
             </DialogHeader>
-            <FilterForm @success="open = false" :mode="filter ? 'edit' : 'create'" :initial="filter ?? {}" />
+            <FilterForm @success="open = false" :mode="filter ? 'edit' : 'create'" :initial="filter ?? {}"
+                :brewing-methods="brewingMethods" />
         </DialogContent>
     </Dialog>
-</template> 
+</template>

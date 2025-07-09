@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('brewing_method_filters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('filter_id')->constrained()->onDelete('cascade');
             $table->foreignId('brewing_method_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

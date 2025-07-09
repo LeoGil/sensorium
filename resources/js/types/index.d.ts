@@ -106,6 +106,7 @@ export interface Filter {
     brand: string;
     name: string;
     quantity: number;
+    brewing_methods: BrewingMethod[];
     description?: string;
     created_at: string;
     updated_at: string;
@@ -124,6 +125,16 @@ export interface Water {
     alkalinity?: number | null;
     ph?: number | null;
     sodium?: number | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface BrewingMethod {
+    id: number;
+    user_id: number;
+    name: string;
+    image?: string;
+    image_url?: string;
     created_at: string;
     updated_at: string;
 }

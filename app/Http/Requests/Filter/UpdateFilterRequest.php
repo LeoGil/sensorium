@@ -18,6 +18,8 @@ class UpdateFilterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'quantity' => ['required', 'integer', 'min:1'],
             'description' => ['nullable', 'string'],
+            'brewing_methods' => ['nullable', 'array'],
+            'brewing_methods.*' => ['exists:brewing_methods,id'],
         ];
     }
 } 

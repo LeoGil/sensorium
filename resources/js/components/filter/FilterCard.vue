@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Card, CardHeader } from '@/components/ui/card'
-import { Filter } from '@/types';
+import { Filter, BrewingMethod } from '@/types';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-vue-next'
 import { toast } from 'vue-sonner';
@@ -16,7 +16,8 @@ interface Props {
         current_page: number,
         per_page: number,
         total: number,
-    }
+    },
+    brewingMethods: BrewingMethod[]
 }
 
 defineProps<Props>()
@@ -51,7 +52,7 @@ function deleteFilter(filterId: number) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" class="w-32">
                         <FilterDialog dialogTitle="Edit Filter" dialogDescription="Edit the filter details."
-                            :filter="filter">
+                            :filter="filter" :brewing-methods="brewingMethods">
                             <template #trigger>
                                 <DropdownMenuItem as-child @select.prevent="open = true">
                                     <span>Edit</span>

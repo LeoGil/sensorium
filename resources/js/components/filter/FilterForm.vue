@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import { Filter } from '@/types';
+import { BrewingMethod, Filter } from '@/types';
 import { useForm } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import InputError from '@/components/InputError.vue';
 import { toast } from 'vue-sonner';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
 
 interface Props {
     mode: 'create' | 'edit'
     initial: Partial<Filter>
+    brewingMethods: BrewingMethod[]
 }
 const props = defineProps<Props>()
 
@@ -18,11 +27,13 @@ const form = useForm<{
     name: string;
     quantity: number | string;
     description?: string;
+    brewing_methods: number[];
 }>({
     brand: props.initial.brand ?? '',
     name: props.initial.name ?? '',
     quantity: props.initial.quantity ?? '',
     description: props.initial.description ?? '',
+    brewing_methods: props.initial.brewing_methods?.map(bm => bm.id) ?? [],
 });
 
 const emit = defineEmits<{
@@ -75,6 +86,21 @@ const submit = () => {
                 <Label for="quantity" class="mb-2">Quantity</Label>
                 <Input id="quantity" type="number" min="1" class="mt-1 block w-full" v-model="form.quantity" placeholder="e.g. 100" required />
                 <InputError :message="form.errors.quantity" />
+            </div>
+            <div>
+                <Label for="brewing_methods" class="mb-2">Brewing Methods</Label>
+                <Select v-model="form.brewing_methods" multiple>
+                    <SelectTrigger class="w-full">
+                        <SelectValue placeholder="Select the brewing methods" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem v-for="brewingMethod in props.brewingMethods" :key="brewingMethod.id" :value="brewingMethod.id">
+                                {{ brewingMethod.name }}
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
             <div>
                 <Label for="description" class="mb-2">Description</Label>

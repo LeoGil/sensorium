@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use App\Policies\FilterPolicy;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 
@@ -22,4 +21,9 @@ class Filter extends Model
     {
         return $this->belongsTo(User::class);
     }
-} 
+
+    public function brewingMethods()
+    {
+        return $this->belongsToMany(BrewingMethod::class, 'brewing_method_filters');
+    }
+}
