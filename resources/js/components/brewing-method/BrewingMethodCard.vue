@@ -1,37 +1,38 @@
 <script setup lang="ts">
-import { Card, CardHeader } from '@/components/ui/card'
-import { Filter, BrewingMethod } from '@/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { BrewingMethod } from '@/types';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-vue-next'
 import { toast } from 'vue-sonner';
 import { router } from '@inertiajs/vue3';
-import FilterDialog from './FilterDialog.vue';
+import BrewingMethodDialog from './BrewingMethodDialog.vue';
 import { ref } from 'vue';
+import { getInitials } from '@/composables/useInitials';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const open = ref(false)
 
 interface Props {
-    filters: {
-        data: Filter[],
+    brewingMethods: {
+        data: BrewingMethod[],
         current_page: number,
         per_page: number,
         total: number,
-    },
-    brewingMethods: BrewingMethod[]
+    }
 }
 
 defineProps<Props>()
 
-function deleteFilter(filterId: number) {
-    confirm('Are you sure you want to delete this filter?') && router.delete(route('filters.destroy', filterId), {
+function deleteBrewingMethod(brewingMethodId: number) {
+    confirm('Are you sure you want to delete this brewing method?') && router.delete(route('brewing-methods.destroy', brewingMethodId), {
         preserveScroll: true,
         onSuccess: () => {
-            toast.success('Filter deleted successfully!', {
+            toast.success('Brewing method deleted successfully!', {
                 position: 'top-center',
             })
         },
         onError: () => {
-            toast.error('Failed to delete filter. Please try again.', {
+            toast.error('Failed to delete brewing method. Please try again.', {
                 position: 'top-center',
             })
         }
@@ -40,8 +41,8 @@ function deleteFilter(filterId: number) {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-4">
-        <Card v-for="filter in filters.data" :key="filter.id">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        <Card v-for="brewingMethod in brewingMethods.data" :key="brewingMethod.id">
             <CardHeader class="flex flex-row items-center gap-4 relative">
                 <DropdownMenu>
                     <DropdownMenuTrigger as-child>
@@ -51,26 +52,29 @@ function deleteFilter(filterId: number) {
                         </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" class="w-32">
-                        <FilterDialog dialogTitle="Edit Filter" dialogDescription="Edit the filter details."
-                            :filter="filter" :brewing-methods="brewingMethods">
+                        <BrewingMethodDialog dialogTitle="Edit Brewing Method"
+                            dialogDescription="Edit the brewing method details." :brewingMethod="brewingMethod">
                             <template #trigger>
                                 <DropdownMenuItem as-child @select.prevent="open = true">
                                     <span>Edit</span>
                                 </DropdownMenuItem>
                             </template>
-                        </FilterDialog>
+                        </BrewingMethodDialog>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem @click="deleteFilter(filter.id)" variant="destructive">
+                        <DropdownMenuItem @click="deleteBrewingMethod(brewingMethod.id)" variant="destructive">
                             Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <div class="flex flex-col">
-                    <div class="font-semibold text-lg">{{ filter.brand }} {{ filter.name }}</div>
-                    <div class="text-sm text-gray-500">Quantity: {{ filter.quantity }}</div>
-                    <div v-if="filter.description" class="text-xs text-gray-400 mt-1">{{ filter.description }}</div>
+                <Avatar class="size-15">
+                    <AvatarImage v-if="brewingMethod.image_url" :src="brewingMethod.image_url" :alt="brewingMethod.name"
+                        class="w-full h-full object-contain object-center" />
+                    <AvatarFallback>{{ getInitials(brewingMethod.name) }}</AvatarFallback>
+                </Avatar>
+                <div>
+                    <div class="font-semibold text-lg">{{ brewingMethod.name }}</div>
                 </div>
             </CardHeader>
         </Card>
     </div>
-</template> 
+</template>

@@ -22,7 +22,7 @@ const mainNavItems: NavItem[] = [
         children: [
             {
                 title: 'Brewing Methods',
-                href: '/',
+                href: '/brewing-methods',
                 icon: coffeemaker,
             },
             {

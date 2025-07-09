@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Policies\BrewingMethodPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 
+#[UsePolicy(BrewingMethodPolicy::class)]
 class BrewingMethod extends Model
 {
     protected $fillable = [

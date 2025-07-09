@@ -61,7 +61,7 @@ const createDefaultRoastLevels = async () => {
         <div v-else class="text-center text-gray-500 py-8">
             <p>No roast levels found.</p>
             <p>Create the default roast levels to get started.</p>
-            <Button class="mt-4" @click="createDefaultRoastLevels">Create Roast Levels</Button>
+            <Button class="mt-4" @click="createDefaultRoastLevels">Create Default Roast Levels</Button>
         </div>
 
     </AppLayout>

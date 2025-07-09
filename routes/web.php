@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BrewingMethodController;
 use App\Http\Controllers\CoffeeController;
 use App\Http\Controllers\RoastLevelController;
 use App\Http\Controllers\ContainerTypeController;
@@ -33,6 +34,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('filters', FilterController::class)->names('filters')->except(['show']);
 
     Route::resource('waters', WaterController::class)->names('waters')->except(['show']);
+
+    Route::resource('brewing-methods', BrewingMethodController::class)->names('brewing-methods')->except(['show']);
 });
 
 require __DIR__ . '/settings.php';
