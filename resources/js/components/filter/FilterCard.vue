@@ -23,19 +23,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteFilter(filterId: number) {
-    confirm('Are you sure you want to delete this filter?') && router.delete(route('filters.destroy', filterId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Filter deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete filter. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this filter?')) {
+        router.delete(route('filters.destroy', filterId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Filter deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete filter. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 
@@ -73,4 +75,4 @@ function deleteFilter(filterId: number) {
             </CardHeader>
         </Card>
     </div>
-</template> 
+</template>

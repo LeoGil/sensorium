@@ -23,19 +23,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteCoffee(coffeeId: number) {
-    confirm('Are you sure you want to delete this coffee?') && router.delete(route('coffees.destroy', coffeeId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Coffee deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete coffee. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this coffee?')) {
+        router.delete(route('coffees.destroy', coffeeId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Coffee deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete coffee. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 
@@ -68,7 +70,7 @@ function deleteCoffee(coffeeId: number) {
                 </Avatar>
                 <div>
                     <Link :href="route('coffees.edit', coffee.id)" class="hover:underline">
-                        <div class="font-semibold text-lg">{{ coffee.name }}</div>
+                    <div class="font-semibold text-lg">{{ coffee.name }}</div>
                     </Link>
                 </div>
             </CardHeader>

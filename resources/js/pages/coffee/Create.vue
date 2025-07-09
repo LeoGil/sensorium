@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CoffeeForm from '@/components/coffee/CoffeeForm.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Brand, BreadcrumbItem, Coffee, RoastLevel } from '@/types';
+import { Brand, BreadcrumbItem, RoastLevel } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
 
@@ -10,7 +10,7 @@ interface Props {
     brands: Brand[];
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

@@ -13,19 +13,21 @@ interface Props {
 defineProps<Props>();
 
 function deleteRoastLevel(roastLevelId: number) {
-    confirm('Are you sure you want to delete this roast level?') && router.delete(route('roast-levels.destroy', roastLevelId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Roast level deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete roast level. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this roast level?')) {
+        router.delete(route('roast-levels.destroy', roastLevelId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Roast level deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete roast level. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 

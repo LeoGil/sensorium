@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import GrinderCard from '@/components/grinder/GrinderCard.vue';
 import PaginationWrapper from '@/components/PaginationWrapper.vue';
-import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem, Grinder } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { Plus } from 'lucide-vue-next';
 import GrinderDialog from '@/components/grinder/GrinderDialog.vue';
 

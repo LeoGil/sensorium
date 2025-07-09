@@ -24,19 +24,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteGrinder(grinderId: number) {
-    confirm('Are you sure you want to delete this grinder?') && router.delete(route('grinders.destroy', grinderId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Grinder deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete grinder. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this grinder?')) {
+        router.delete(route('grinders.destroy', grinderId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Grinder deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete grinder. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 

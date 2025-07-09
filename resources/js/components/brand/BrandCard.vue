@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardHeader } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Brand } from '@/types';
 import { ref } from 'vue';
@@ -24,19 +24,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteBrand(brandId: number) {
-    confirm('Are you sure you want to delete this brand?') && router.delete(route('brands.destroy', brandId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Brand deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete brand. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this brand?')) {
+        router.delete(route('brands.destroy', brandId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Brand deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete brand. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 

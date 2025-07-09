@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import ContainerTypeCard from '@/components/container-type/ContainerTypeCard.vue';
 import PaginationWrapper from '@/components/PaginationWrapper.vue';
-import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem, ContainerType } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { Plus } from 'lucide-vue-next';
 import ContainerTypeDialog from '@/components/container-type/ContainerTypeDialog.vue';
 

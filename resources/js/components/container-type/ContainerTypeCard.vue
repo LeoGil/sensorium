@@ -25,19 +25,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteContainerType(containerTypeId: number) {
-    confirm('Are you sure you want to delete this container type?') && router.delete(route('container-types.destroy', containerTypeId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Container type deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete container type. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this container type?')) {
+        router.delete(route('container-types.destroy', containerTypeId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Container type deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete container type. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 

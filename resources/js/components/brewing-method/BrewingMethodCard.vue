@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardHeader } from '@/components/ui/card'
 import { BrewingMethod } from '@/types';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-vue-next'
@@ -24,19 +24,21 @@ interface Props {
 defineProps<Props>()
 
 function deleteBrewingMethod(brewingMethodId: number) {
-    confirm('Are you sure you want to delete this brewing method?') && router.delete(route('brewing-methods.destroy', brewingMethodId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Brewing method deleted successfully!', {
-                position: 'top-center',
-            })
-        },
-        onError: () => {
-            toast.error('Failed to delete brewing method. Please try again.', {
-                position: 'top-center',
-            })
-        }
-    })
+    if (confirm('Are you sure you want to delete this brewing method?')) {
+        router.delete(route('brewing-methods.destroy', brewingMethodId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Brewing method deleted successfully!', {
+                    position: 'top-center',
+                })
+            },
+            onError: () => {
+                toast.error('Failed to delete brewing method. Please try again.', {
+                    position: 'top-center',
+                })
+            }
+        })
+    }
 }
 </script>
 

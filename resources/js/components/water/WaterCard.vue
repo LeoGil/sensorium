@@ -18,15 +18,17 @@ interface Props {
 defineProps<Props>();
 
 function deleteWater(waterId: number) {
-    confirm('Are you sure you want to delete this water?') && router.delete(route('waters.destroy', waterId), {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.success('Water deleted successfully!', { position: 'top-center' });
-        },
-        onError: () => {
-            toast.error('Failed to delete water. Please try again.', { position: 'top-center' });
-        }
-    });
+    if (confirm('Are you sure you want to delete this water?')) {
+        router.delete(route('waters.destroy', waterId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Water deleted successfully!', { position: 'top-center' });
+            },
+            onError: () => {
+                toast.error('Failed to delete water. Please try again.', { position: 'top-center' });
+            }
+        });
+    }
 }
 </script>
 <template>
@@ -35,11 +37,14 @@ function deleteWater(waterId: number) {
             <CardHeader class="flex flex-row items-center justify-between">
                 <div>
                     <div class="font-semibold text-lg">{{ water.name }}</div>
-                    <div class="text-xs text-gray-500">Hardness: {{ water.hardness }} mg/L | Alkalinity: {{ water.alkalinity }} mg/L</div>
+                    <div class="text-xs text-gray-500">Hardness: {{ water.hardness }} mg/L | Alkalinity: {{
+                        water.alkalinity }} mg/L</div>
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger as-child>
-                        <button class="p-2"><MoreHorizontal class="w-5 h-5" /></button>
+                        <button class="p-2">
+                            <MoreHorizontal class="w-5 h-5" />
+                        </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem as-child>
@@ -61,4 +66,4 @@ function deleteWater(waterId: number) {
             </div>
         </Card>
     </div>
-</template> 
+</template>
