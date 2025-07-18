@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('coffee_id')->constrained()->onDelete('cascade');
             $table->date('roast_date');
             $table->string('batch_identifier')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

@@ -40,7 +40,6 @@ const form = useForm<{
     brand_id: number;
     image?: string | File;
     roast_level_id: number;
-    score?: number;
 }>({
     name: props.initial.name ?? '',
     description: props.initial.description ?? '',
@@ -55,7 +54,6 @@ const form = useForm<{
     brand_id: props.initial.brand_id ?? 0,
     image: props.initial.image ?? '',
     roast_level_id: props.initial.roast_level_id ?? 0,
-    score: props.initial.score ?? 0,
 });
 
 const emit = defineEmits<{
@@ -246,11 +244,6 @@ watch(
                     <Label for="sensory" class="mb-2">Sensory Notes</Label>
                     <Textarea id="sensory" class="mt-1 block w-full" v-model="form.sensory" />
                     <InputError :message="form.errors.sensory" />
-                </div>
-                <div>
-                    <Label for="score" class="mb-2">Score</Label>
-                    <Input id="score" type="number" :min="0" :max="100" class="mt-1 block w-full" v-model.number="form.score" />
-                    <InputError :message="form.errors.score" />
                 </div>
                 <!-- Botão -->
                 <div class="flex items-center gap-4">

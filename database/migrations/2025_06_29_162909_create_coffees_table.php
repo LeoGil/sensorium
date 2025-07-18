@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('producer')->nullable();
             $table->string('processing_method')->nullable();
             $table->string('roaster')->nullable();
-            $table->integer('score')->nullable();
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
             $table->foreignId('roast_level_id')->constrained()->onDelete('cascade');
